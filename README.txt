@@ -1,1 +1,0 @@
-Python module to get historical data from Yahoo!Finance
