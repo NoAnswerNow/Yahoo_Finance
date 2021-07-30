@@ -7,22 +7,14 @@ from time import sleep
 import csv
 from pathlib import Path
 from db import write_data
-#from db import create_db, create_tables, write_data
-#from server_fl import data_yahoo
-
 
 
 Path("./company_data").mkdir(exist_ok=True)
 # in task we have PVTL company but it's defunct company. I'll scrap PVT.V company
 # 'PD', 'ZUO', 'PINS', 'ZM', 'PVT.V', 'DOCU', 'CLDR' ,'RUN'] # list of companies
 # catalog_com = ['PD']#,'ZUO','PINS']
-catalog_com = ['PD','ZUO','PINS','ZM','DOCU','CLDR','RUN','PVT.V']#,'','']
+catalog_com = ['PD','ZUO','PINS','ZM','DOCU','CLDR','RUN','PVT.V']
 
-#create db yahoo_finance
-#create_db()
-# create tables companies, historical_data
-#create_tables()
-#data_yahoo()
 
 def get_data(company):
     """

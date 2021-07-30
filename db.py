@@ -14,7 +14,6 @@ DB_DEFAULT_NAME=os.environ.get("DB_DEFAULT_NAME")
 print('Connecting to db...')
 
 
-
 def create_db():
     conn = psycopg2.connect(dbname=DB_DEFAULT_NAME,
                         user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
@@ -30,7 +29,6 @@ def create_db():
     #Closing the connection
     conn.close()
  
-
 
 def create_tables():
     print('Creating tables...')
@@ -66,7 +64,6 @@ def write_data(file_name, company_name):
                        user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
     conn.autocommit = True
     cur = conn.cursor()
-    #for firm in company_name:
     id_comp=cur.execute(
             "INSERT INTO companies (name) VALUES ('{}') RETURNING id".format(company_name)  
             )
@@ -74,7 +71,6 @@ def write_data(file_name, company_name):
        
     with open(file_name) as f:
         content = f.readlines()
-    # you may also want to remove whitespace characters like `\n` at the end of each line
         content = [x.strip() for x in content]
         content.pop(0)
         for row in content:
@@ -83,6 +79,7 @@ def write_data(file_name, company_name):
                 "INSERT INTO historical_data (Date,Open,High,Low,Close,AdjClose,Volume,comp_id) VALUES ('{}', {}, {}, {},{},{},{},{})".format(result[0], result[1], result[2], result[3], result[4], result[5], result[6],id_comp))
     cur.close()
     conn.close()            
+
 
 def get_historical_data_by_company_name(comp_name):
     conn = psycopg2.connect(dbname=DB_NAME,

@@ -1,7 +1,6 @@
 from flask import Flask, request
 import psycopg2
 import logging
-import json
 from db import create_db, create_tables, write_data, get_historical_data_by_company_name
 from finance_content import get_data, companiaes_data
 
