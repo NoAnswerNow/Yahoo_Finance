@@ -18,4 +18,4 @@ You can save the data as .csv extension or you can setup a simple REST app that 
 - Flask==2.0.1
 - requests==2.22.0
 - python-dotenv==0.18.0
-- PostgreSQL 13
+- PostgreSQL 13.3
