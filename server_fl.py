@@ -3,6 +3,7 @@ import psycopg2
 import logging
 from db import create_db, create_tables, write_data, get_historical_data_by_company_name
 from finance_content import get_data, companiaes_data
+from new_company import get_new_company
 
 print('Starting server...')
 
@@ -18,10 +19,20 @@ with app.app_context():
 def data_yahoo():
     app.logger.info(request.args.get('company'))
     comp_name = request.args.get('company')
-    if comp_name is not None:
-        results = get_historical_data_by_company_name(comp_name)
-
+    comp_name = comp_name.upper()
+    results = get_historical_data_by_company_name(comp_name)
+    if results :
         return str(results)
+
+    elif not results  :
+        get_new_company(comp_name)
+        app.logger.info(request.args.get('company'))
+        comp_name1 = request.args.get('company')
+        print(comp_name1)
+        results1 = get_historical_data_by_company_name(comp_name1)
+        return str(results1)
+        #return 'no company'
+
     else:
         return('404')    
 

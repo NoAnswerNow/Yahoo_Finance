@@ -12,8 +12,8 @@ from db import write_data
 Path("./company_data").mkdir(exist_ok=True)
 # in task we have PVTL company but it's defunct company. I'll scrap PVT.V company
 # 'PD', 'ZUO', 'PINS', 'ZM', 'PVT.V', 'DOCU', 'CLDR' ,'RUN'] # list of companies
-# catalog_com = ['PD']#,'ZUO','PINS']
-catalog_com = ['PD','ZUO','PINS','ZM','DOCU','CLDR','RUN','PVT.V']
+catalog_com = ['PD','ZUO']
+#catalog_com = ['PD','ZUO','PINS','ZM','DOCU','CLDR','RUN','PVT.V']
 
 
 def get_data(company):
