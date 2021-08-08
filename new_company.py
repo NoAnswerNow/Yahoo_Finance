@@ -11,7 +11,6 @@ import requests
 
 
 app = Flask(__name__)
-
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 DB_NAME=os.environ.get("DB_NAME")
@@ -21,30 +20,24 @@ DB_HOST=os.environ.get("DB_HOST")
 DB_DEFAULT_NAME=os.environ.get("DB_DEFAULT_NAME")
 
 
+#get the data of new company and write to db
 def get_new_company(comp_name):
     results = get_historical_data_by_company_name(comp_name)
     new_comp = get_data(comp_name)
-    #print(new_comp)
-    if new_comp == "Some problems..." :
-        return "no company"
+    if new_comp is None:
+        return None
     else :
         data_file = open("./company_data/{}.csv".format(comp_name), "w")
         for line in new_comp:
             data_file.write(line)
         data_file.close()
-
-
         conn = None
         try:
-            conn = psycopg2.connect(dbname=DB_NAME,
-                   user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+            conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
             conn.autocommit = True
             cur = conn.cursor()
-            id_comp=cur.execute(
-                    "INSERT INTO companies (name) VALUES ('{}') RETURNING id".format(comp_name)  
-                    )
+            id_comp=cur.execute("INSERT INTO companies (name) VALUES ('{}') RETURNING id".format(comp_name))  
             id_comp = cur.fetchone()[0]
-       
             with open("./company_data/{}.csv".format(comp_name)) as f:
                 content = f.readlines()
                 content = [x.strip() for x in content]

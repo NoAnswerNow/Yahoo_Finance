@@ -20,8 +20,7 @@ def create_db():
     #Creating a database
     conn = None
     try:
-        conn = psycopg2.connect(dbname=DB_DEFAULT_NAME,
-                        user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+        conn = psycopg2.connect(dbname=DB_DEFAULT_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
         conn.autocommit = True
         cur = conn.cursor()
         print('Creating db yahoo_finance...')
@@ -44,8 +43,7 @@ def create_tables():
     print('Creating tables...')
     conn = None
     try:
-        conn = psycopg2.connect(dbname=DB_NAME,
-                       user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+        conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
         conn.autocommit = True
         cur = conn.cursor()
         cur.execute("DROP TABLE IF EXISTS companies, historical_data")
@@ -80,8 +78,7 @@ def create_tables():
 def write_data(file_name, company_name):
     conn = None
     try:
-        conn = psycopg2.connect(dbname=DB_NAME,
-                       user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+        conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
         conn.autocommit = True
         cur = conn.cursor()
         id_comp=cur.execute(
@@ -109,21 +106,15 @@ def write_data(file_name, company_name):
 def get_historical_data_by_company_name(comp_name):
     conn = None
     try:
-        conn = psycopg2.connect(dbname=DB_NAME,
-                        user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+        conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
         conn.autocommit = True
         cur = conn.cursor()
         cur.execute("SELECT * FROM historical_data WHERE comp_id =(SELECT id FROM companies WHERE name=UPPER('{}'))".format(comp_name))
-
         results = []
         columns = [column[0] for column in cur.description]
-        #print(columns)
         for row in cur.fetchall():
-            #print(row)
             json_row = json.dumps(row, ensure_ascii=False,default=str).replace(
             ']', '').replace('[', '').split(',')
-            #print(json_row)
-            #print(dict(zip(columns,json_row)))
             results.append(dict(zip(columns,json_row)))
     except psycopg2.DatabaseError as e:
         print(f'Error {e}')
