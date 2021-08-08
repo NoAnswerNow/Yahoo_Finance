@@ -33,7 +33,11 @@ def get_data(company):
                 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
                 }
     res = requests.get(url, headers=headers)
-    return res.text
+    if res.status_code == 200 :
+        return res.text
+    else:
+        return "Some problems..."
+        
 
 # get content for all companies
 def companiaes_data():

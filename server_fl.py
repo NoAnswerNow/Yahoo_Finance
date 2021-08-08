@@ -25,14 +25,12 @@ def data_yahoo():
         return str(results)
 
     elif not results  :
+        #if we have the empty list get the data of new company and write it to db
         get_new_company(comp_name)
-        app.logger.info(request.args.get('company'))
-        comp_name1 = request.args.get('company')
-        print(comp_name1)
-        results1 = get_historical_data_by_company_name(comp_name1)
-        return str(results1)
-        #return 'no company'
-
+        return str(results)
+    elif not results :
+        return ('no company')
+     
     else:
         return('404')    
 
