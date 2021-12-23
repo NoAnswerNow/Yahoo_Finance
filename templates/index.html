@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+	<title>Yahoo!Finance</title>
+  <!-- <script src="{{url_for('static', filename='index.js')}}"></script> -->
+
+</head>
+<body class=" text-center">
+  <main class="container form-signin">
+      {% block content %}
+      <form action = "{{url_for('data_yahoo') }}" class = "form" method = "post">
+          <h1 class="h1 mb-3 fw-normal">Get historical data of company</h1>
+          <h2 class="h2 mb-3 fw-normal">from  <a class="nav-link fst-italic text-blue" href="https://finance.yahoo.com/">Yahoo!Finance</a></h2>
+          <h4 class="h4 mb-3 fw-normal">Please enter the company</h4>
+          </div>
+          <div class="form-floating">
+          <input type="text" name = "nm" placeholder="Company name">
+          </div>
+          <button class="w-30 btn btn-lg btn-primary" type="submit">Get</button>
+      </form>
+      {% endblock %}
+          <div>
+          {{value}}
+          </div>
+  </main>
+</body>
+</html>

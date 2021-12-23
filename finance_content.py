@@ -21,8 +21,8 @@ def get_data(company):
     Function used to get a  text from a Beautiful Soup
      object
     """
-    catalog = {'company': company}  # choose the company 
-    # get MAX period    
+    catalog = {'company': company}  # choose the company
+    # get MAX period
     period1 = 0 # you can choose any date. When the value is 0 (zero) we get the maximum period
     period2 = int(time.mktime(datetime.now().date().timetuple()))  # get the last date(present date)
     interval = '1wk'  # (1d, 1 wk, 1m) can choose frequency: day, week or month
@@ -35,7 +35,7 @@ def get_data(company):
         return res.text
     else:
         return None
-        
+
 
 # get content for all companies
 def companiaes_data():
@@ -43,7 +43,7 @@ def companiaes_data():
         for firm in catalog_com :
             company_data.append(get_data(firm))
             print('Download :', firm, 'company')
-            time.sleep(randint(5, 25)) # change the frequency of requests 
+            time.sleep(randint(5, 25)) # change the frequency of requests
             # save data to .csv file
             data_file = open("./company_data/{}.csv".format(firm), "w")
             for line in company_data:
@@ -55,7 +55,7 @@ def companiaes_data():
         print('Recording to DB...')
         for firm in catalog_com:
             write_data("./company_data/{}.csv".format(firm), firm)
-        print('Successfully')    
+        print('Successfully')
 
 
 

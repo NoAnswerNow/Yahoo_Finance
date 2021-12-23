@@ -1,5 +1,5 @@
 from finance_content import get_data
-import csv 
+import csv
 from flask import Flask, request
 import psycopg2
 import os
@@ -52,4 +52,4 @@ def get_new_company(comp_name):
         finally:
             if conn:
                 cur.close()
-                conn.close()  
+                conn.close()

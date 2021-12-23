@@ -28,16 +28,16 @@ def create_db():
         #Preparing query to create a database
         sql = '''CREATE database yahoo_finance''';
         cur.execute(sql)
-        cur.execute("SELECT version()") 
+        cur.execute("SELECT version()")
         version = cur.fetchone()[0]
         print(version)
     except psycopg2.DatabaseError as e :
         print(f'Error {e}')
         #sys.exit(1)
     finally:
-        if conn:    
+        if conn:
             conn.close()
- 
+
 
 def create_tables():
     print('Creating tables...')
@@ -85,7 +85,6 @@ def write_data(file_name, company_name):
             "INSERT INTO companies (name) VALUES ('{}') RETURNING id".format(company_name)  
             )
         id_comp = cur.fetchone()[0]
-       
         with open(file_name) as f:
             content = f.readlines()
             content = [x.strip() for x in content]
@@ -100,7 +99,7 @@ def write_data(file_name, company_name):
     finally:
         if conn:
             cur.close()
-            conn.close()            
+            conn.close()
 
 
 def get_historical_data_by_company_name(comp_name):
@@ -120,7 +119,7 @@ def get_historical_data_by_company_name(comp_name):
         print(f'Error {e}')
         #sys.exit(1)
     finally:
-        if conn:            
+        if conn:
             cur.close()
             conn.close()
     return results

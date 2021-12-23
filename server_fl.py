@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template, url_for
 import psycopg2
 import logging
 from db import create_db, create_tables, write_data, get_historical_data_by_company_name
@@ -14,20 +14,18 @@ with app.app_context():
     companiaes_data()
 
 
-@app.route("/")
+@app.route("/", methods=['POST'])
 def data_yahoo():
-    app.logger.info(request.args.get('company'))
-    comp_name = request.args.get('company')
+    comp_name = request.form.get("nm")
     comp_name = comp_name.upper()
     results = get_historical_data_by_company_name(comp_name)
     if results :
-        return str(results)
+        return render_template("index.html", value=(results))
     elif not results  :
         #if we have the empty list get the data of new company and write it to db
         get_new_company(comp_name)
-        return str(results)
+        return render_template("index.html", value=(results))
     else:
-        return('404')    
-  
+        return render_template("index.html", value='error 404')
 if __name__=="__main__" :
-    app.run(debug=True)    
+    app.run(debug=True)
