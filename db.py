@@ -11,7 +11,7 @@ load_dotenv(dotenv_path)
 DB_NAME=os.environ.get("DB_NAME")
 DB_USER=os.environ.get("DB_USER")
 DB_PASSWORD=os.environ.get("DB_PASSWORD")
-DB_HOST=os.environ.get("DATABASE_URL")
+DB_HOST=os.environ.get("DB_HOST")
 DB_DEFAULT_NAME=os.environ.get("DB_DEFAULT_NAME")
 print('Connecting to db...')
 
@@ -37,7 +37,6 @@ def create_db():
     finally:
         if conn:
             conn.close()
-
 
 
 def create_tables():
