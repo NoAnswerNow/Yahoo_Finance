@@ -8,21 +8,21 @@
   <!-- <script src="{{url_for('static', filename='index.js')}}"></script> -->
 
 </head>
-<body class=" text-center">
+<body class="d-flex h-100 text-center text-white bg-info">
   <main class="container form-signin">
       {% block content %}
       <form action = "{{url_for('data_yahoo') }}" class = "form" method = "post">
-          <h1 class="h1 mb-3 fw-normal">Get historical data of company</h1>
-          <h2 class="h2 mb-3 fw-normal">from  <a class="nav-link fst-italic text-blue" href="https://finance.yahoo.com/">Yahoo!Finance</a></h2>
-          <h4 class="h4 mb-3 fw-normal">Please enter the company</h4>
+          <h1 class="h1 mb-3 fw-normal fst-italic">Get historical data of company</h1>
+          <h2 class="h2 mb-3 fw-normal fst-italic">from  <a class="nav-link fst-italic text-blue" href="https://finance.yahoo.com/">Yahoo!Finance</a></h2>
+          <h4 class="h4 mb-3 fw-normal">Enter the company :</h4>
           </div>
           <div class="form-floating">
-          <input type="text" name = "nm" placeholder="Company name">
+          <input type="text" name = "nm" placeholder="Company name(try pd,zuo)">
           </div>
           <button class="w-30 btn btn-lg btn-primary" type="submit">Get</button>
       </form>
       {% endblock %}
-          <div>
+          <div class="text-success">
           {{value}}
           </div>
   </main>

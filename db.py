@@ -39,6 +39,7 @@ def create_db():
             conn.close()
 
 
+
 def create_tables():
     print('Creating tables...')
     conn = None

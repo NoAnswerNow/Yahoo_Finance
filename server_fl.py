@@ -14,10 +14,10 @@ with app.app_context():
     companiaes_data()
 
 
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['POST','GET'])
 def data_yahoo():
     comp_name = request.form.get("nm")
-    comp_name = comp_name.upper()
+    #comp_name = comp_name.upper()
     results = get_historical_data_by_company_name(comp_name)
     if results :
         return render_template("index.html", value=(results))
